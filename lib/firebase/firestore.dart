@@ -146,9 +146,16 @@ class FireStoreService {
   /// START GET ORDER
 
   List<Order> _orderList(QuerySnapshot snapshot) {
+    // print(snapshot);
     return snapshot.docs.map((DocumentSnapshot doc) {
-      print(doc.reference.collection('user_orders').snapshots().last);
-      doc.reference.collection('user_orders').snapshots().map((snapshot) {
+      //     print(doc.id);
+      // print(doc.reference);
+      // doc.reference.collection('user_orders').snapshots().listen((event) {
+      //   print(event);
+      //   print(event.docs.first.id);
+      // });
+      doc.reference.collection('user_orders').snapshots().listen((snapshot) {
+        print(snapshot);
         print('BEFORE');
         snapshot.docs.map((meal) {
           print('HI MODE IN FIRESOTER');
@@ -161,7 +168,7 @@ class FireStoreService {
 
   Stream<List<Order>> get orders {
     return ordersCollection
-        .orderBy('order_time', descending: false)
+        // .orderBy('order_time', descending: false)
         .snapshots()
         .map(_orderList);
   }

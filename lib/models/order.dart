@@ -21,6 +21,7 @@ class Order {
       this.mealId});
 
   factory Order.fromFireStore(DocumentSnapshot doc) {
+    // print('IN ORDER MODEL ${doc.data()}');
     Map data = doc.data();
     return Order(
       mealId: doc.id ?? 'NO ID',

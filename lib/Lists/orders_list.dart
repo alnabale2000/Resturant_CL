@@ -15,9 +15,9 @@ class OrdersList extends StatelessWidget {
       ),
       itemCount: orders?.length ?? 0,
       itemBuilder: (context, index) {
-        // return OrderCard(
-        //   order: orders[index],
-        // );
+        return OrderCard(
+          order: orders[index],
+        );
       },
     );
   }
