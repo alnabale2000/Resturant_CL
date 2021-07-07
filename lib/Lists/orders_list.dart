@@ -15,9 +15,9 @@ class OrdersList extends StatelessWidget {
       ),
       itemCount: orders?.length ?? 0,
       itemBuilder: (context, index) {
-        return OrderCard(
-          order: orders[index],
-        );
+        // return OrderCard(
+        //   order: orders[index],
+        // );
       },
     );
   }
@@ -40,7 +40,7 @@ class _OrderCardState extends State<OrderCard> {
     // print(_order.mealId);
 
     return Dismissible(
-      key: ValueKey<String>(_order.mealId),
+      key: ValueKey<String>(_order.mealId ?? 'asd'),
       background: Container(
         color: Colors.red,
         child: Row(

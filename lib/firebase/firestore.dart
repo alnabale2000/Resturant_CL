@@ -7,7 +7,10 @@ import 'package:resturant/models/order.dart';
 class FireStoreService {
   final String catNameFromProvider;
   final String userId;
-  static List<Order> finalCoursesList = [];
+  final List<String> ids = [
+    'YutEdS7tECfJkKFa4zuRxEyW4D63',
+    'CjrEJpHt8bak3GgGnwNrBdrVY213'
+  ];
 
   FireStoreService({this.catNameFromProvider, this.userId});
 
@@ -143,7 +146,17 @@ class FireStoreService {
   /// START GET ORDER
 
   List<Order> _orderList(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) => Order.fromFireStore(doc)).toList();
+    return snapshot.docs.map((DocumentSnapshot doc) {
+      print(doc.reference.collection('user_orders').snapshots().last);
+      doc.reference.collection('user_orders').snapshots().map((snapshot) {
+        print('BEFORE');
+        snapshot.docs.map((meal) {
+          print('HI MODE IN FIRESOTER');
+          print(meal.id);
+          return Order.fromFireStore(meal);
+        }).toList();
+      });
+    }).toList();
   }
 
   Stream<List<Order>> get orders {
@@ -263,5 +276,9 @@ class FireStoreService {
       'email': email,
       'admin': 'false',
     });
+  }
+
+  printId(QueryDocumentSnapshot<Object> e) {
+    print(e);
   }
 }

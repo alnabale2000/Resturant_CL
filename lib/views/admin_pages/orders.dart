@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resturant/Lists/orders_list.dart';
 import 'package:resturant/firebase/firestore.dart';
-import 'package:resturant/models/order.dart';
 
 class Orders extends StatelessWidget {
   @override

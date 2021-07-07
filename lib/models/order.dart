@@ -23,7 +23,7 @@ class Order {
   factory Order.fromFireStore(DocumentSnapshot doc) {
     Map data = doc.data();
     return Order(
-      mealId: doc.id,
+      mealId: doc.id ?? 'NO ID',
       mealImage: data['meal_image'] ?? 'No image',
       mealName: data['meal_name'] ?? 'No name',
       userName: data['username'] ?? 'Unknown',

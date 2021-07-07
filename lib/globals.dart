@@ -1,5 +1,7 @@
 library my_prj.globals;
 
+import 'package:resturant/firebase/firestore.dart';
+
 String userCheck = '';
 String userId;
 
