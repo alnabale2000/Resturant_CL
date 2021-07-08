@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resturant/constant.dart';
@@ -5,9 +6,12 @@ import 'package:resturant/firebase/firestore.dart';
 import 'package:resturant/models/order.dart';
 
 class OrdersList extends StatelessWidget {
+  List<dynamic> counter = [];
+
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<Order>>(context);
+
     return ListView.separated(
       separatorBuilder: (BuildContext context, int index) => const Divider(
         height: 1,
@@ -20,6 +24,39 @@ class OrdersList extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class OrdersContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final orders = Provider.of<List<Order>>(context);
+
+    return Container(
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: orders?.length ?? 0,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              TestCard(order: orders[index]),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class TestCard extends StatelessWidget {
+  final Order order;
+
+  TestCard({this.order});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(order.mealName);
   }
 }
 
@@ -37,7 +74,7 @@ class _OrderCardState extends State<OrderCard> {
   Widget build(BuildContext context) {
     final _order = widget.order;
     final size = MediaQuery.of(context).size;
-    // print(_order.mealId);
+    // print(_order[widget.indexm.ealId);
 
     return Dismissible(
       key: ValueKey<String>(_order.mealId ?? 'asd'),
@@ -67,7 +104,7 @@ class _OrderCardState extends State<OrderCard> {
               //   color: Colors.grey[200],
               // color: Colors.green,
               width: double.infinity,
-              height: size.height * 0.350,
+              height: size.height * 0.500,
               child: Column(
                 children: [
                   Row(
@@ -96,7 +133,7 @@ class _OrderCardState extends State<OrderCard> {
                       Padding(
                         padding: const EdgeInsets.only(left: 28.0),
                         child: Text(
-                          "0798${_order.phoneNumber}",
+                          "${_order.phoneNumber}",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 22,
@@ -126,7 +163,7 @@ class _OrderCardState extends State<OrderCard> {
                       Card(
                         child: Container(
                           width: size.width * 0.45,
-                          height: size.height * 0.130,
+                          height: size.height * 0.250,
                           child: Image.network(
                             'https://i.ytimg.com/vi/IyOc_ksGCMk/maxresdefault.jpg',
                             fit: BoxFit.fitHeight,
@@ -150,7 +187,23 @@ class _OrderCardState extends State<OrderCard> {
                           ),
                           Container(
                             child: Text(
-                              " : العدد",
+                              "${_order.mealPrice} : السعر ",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 24.5, color: Colors.white),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              "${_order.mealCount} : العدد ",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 24.5, color: Colors.white),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              "${_order.totalPrice} : العدد ",
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   fontSize: 24.5, color: Colors.white),

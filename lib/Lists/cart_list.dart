@@ -194,25 +194,6 @@ class CartCard extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 18.0),
                     child: Column(
                       children: [
-                        // Padding(
-                        //   padding: const EdgeInsets.only(right: 18.0),
-                        //   child: Align(
-                        //     alignment: Alignment.topRight,
-                        //     child: IconButton(
-                        //         icon: Icon(
-                        //           Icons.cancel,
-                        //           size: 42,
-                        //           color: Colors.deepOrange,
-                        //         ),
-                        //         onPressed: () {
-                        //           print("Cancel");
-                        //           FireStoreService().deleteSingleCartMealDoc(
-                        //             mealName: cartMeal.mealName,
-                        //             uid: uid,
-                        //           );
-                        //         }),
-                        //   ),
-                        // ),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Row(
@@ -268,18 +249,19 @@ class CartCard extends StatelessWidget {
                                 child: Align(
                                   alignment: Alignment.topRight,
                                   child: IconButton(
-                                      icon: Icon(
-                                        Icons.cancel,
-                                        size: 42,
-                                        color: Colors.deepOrange,
-                                      ),
-                                      onPressed: () {
-                                        print("Cancel");
-                                        FireStoreService()
-                                            .deleteSingleCartMealDoc(
-                                                mealName: cartMeal.mealName,
-                                                uid: uid);
-                                      }),
+                                    icon: Icon(
+                                      Icons.cancel,
+                                      size: 42,
+                                      color: Colors.deepOrange,
+                                    ),
+                                    onPressed: () {
+                                      print("Cancel");
+                                      FireStoreService()
+                                          .deleteSingleCartMealDoc(
+                                              mealName: cartMeal.mealName,
+                                              uid: uid);
+                                    },
+                                  ),
                                 ),
                               )
                             ],

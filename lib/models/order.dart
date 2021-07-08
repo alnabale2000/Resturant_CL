@@ -2,13 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Order {
   final String userName;
-  final String phoneNumber;
+  final int phoneNumber;
+  final int mealCount;
   final String mealName;
   final String mealImage;
   final String mealDateTime;
   final String mealDetails;
   final String mealId;
+  final String userId;
   final double mealPrice;
+  final double totalPrice;
 
   Order(
       {this.userName,
@@ -18,20 +21,25 @@ class Order {
       this.mealImage,
       this.mealDateTime,
       this.mealDetails,
-      this.mealId});
+      this.mealId,
+      this.userId,
+      this.mealCount,
+      this.totalPrice});
 
   factory Order.fromFireStore(DocumentSnapshot doc) {
-    // print('IN ORDER MODEL ${doc.data()}');
     Map data = doc.data();
     return Order(
       mealId: doc.id ?? 'NO ID',
       mealImage: data['meal_image'] ?? 'No image',
       mealName: data['meal_name'] ?? 'No name',
       userName: data['username'] ?? 'Unknown',
+      userId: data['user_id'],
       phoneNumber: data['phone_number'] ?? 'Unknown',
       mealPrice: data['meal_price'] ?? 0,
+      totalPrice: data['total_price'] ?? 0,
       mealDetails: data['meal_details'] ?? 'بلا اضافات',
       mealDateTime: data['order_time'] ?? '',
+      mealCount: data['meal_count'] ?? 0,
     );
   }
 }

@@ -44,9 +44,10 @@ class CartFloatingButton extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => ReceiptPage(
-                                                cartMeals: cartMeals,
-                                              )));
+                                        builder: (context) => ReceiptPage(
+                                          cartMeals: cartMeals,
+                                        ),
+                                      ));
                                 },
                               ),
                               ElevatedButton(
@@ -55,8 +56,8 @@ class CartFloatingButton extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              DeliveryPage()));
+                                        builder: (context) => DeliveryPage(),
+                                      ));
                                 },
                               )
                             ],

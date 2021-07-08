@@ -1,16 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:resturant/models/cart_meal.dart';
 import 'package:resturant/models/category.dart';
 import 'package:resturant/models/meal.dart';
 import 'package:resturant/models/order.dart';
 
-class FireStoreService {
+class FireStoreService extends ChangeNotifier {
   final String catNameFromProvider;
   final String userId;
-  final List<String> ids = [
-    'YutEdS7tECfJkKFa4zuRxEyW4D63',
-    'CjrEJpHt8bak3GgGnwNrBdrVY213'
-  ];
 
   FireStoreService({this.catNameFromProvider, this.userId});
 
@@ -96,7 +93,7 @@ class FireStoreService {
     String uid,
     String mealName,
     double mealPrice,
-    mealDetails,
+    String mealDetails,
     String mealImage,
     int count,
     double totalPrice,
@@ -111,13 +108,31 @@ class FireStoreService {
     });
   }
 
-  void addOrder({String mealName}) {
+  void addOrder({
+    mealId,
+    String mealImage,
+    String mealName,
+    String userName,
+    String userId,
+    int phoneNumber,
+    int mealCount,
+    double mealPrice,
+    double totalPrice,
+    String mealDetails,
+  }) {
     var time = DateTime.now().toString();
     print(userId);
 
-    ordersCollection.doc(userId).set({'order_time': time});
-    ordersCollection.doc(userId).collection('user_orders').doc(mealName).set({
+    ordersCollection.add({
+      'order_time': time,
       'meal_name': mealName,
+      'meal_details': mealDetails,
+      'meal_image': mealImage,
+      'username': userName,
+      'phone_number': phoneNumber,
+      'meal_price': mealPrice,
+      'meal_count': mealCount,
+      'total_price': totalPrice,
     });
   }
 
@@ -146,29 +161,12 @@ class FireStoreService {
   /// START GET ORDER
 
   List<Order> _orderList(QuerySnapshot snapshot) {
-    // print(snapshot);
-    return snapshot.docs.map((DocumentSnapshot doc) {
-      //     print(doc.id);
-      // print(doc.reference);
-      // doc.reference.collection('user_orders').snapshots().listen((event) {
-      //   print(event);
-      //   print(event.docs.first.id);
-      // });
-      doc.reference.collection('user_orders').snapshots().listen((snapshot) {
-        print(snapshot);
-        print('BEFORE');
-        snapshot.docs.map((meal) {
-          print('HI MODE IN FIRESOTER');
-          print(meal.id);
-          return Order.fromFireStore(meal);
-        }).toList();
-      });
-    }).toList();
+    return snapshot.docs.map((doc) => Order.fromFireStore(doc)).toList();
   }
 
   Stream<List<Order>> get orders {
     return ordersCollection
-        // .orderBy('order_time', descending: false)
+        .orderBy('order_time', descending: false)
         .snapshots()
         .map(_orderList);
   }

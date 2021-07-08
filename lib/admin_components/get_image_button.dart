@@ -3,14 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:resturant/views/admin_pages/image_picker.dart';
 
 class GetImageButton extends StatelessWidget {
-  GetImageButton({
-    Key key,
-    @required this.size,
-    @required this.from,
-  }) : super(key: key);
+  GetImageButton(
+      {Key key, @required this.size, @required this.from, this.function})
+      : super(key: key);
 
   final Size size;
   final String from;
+  final Function function;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +24,7 @@ class GetImageButton extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ImageCapture(from)));
-      },
+      onPressed: function,
     );
   }
 }

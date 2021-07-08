@@ -12,7 +12,7 @@ class ImageCapture extends StatefulWidget {
   createState() => _ImageCaptureState();
   final String from;
 
-  ImageCapture(this.from);
+  ImageCapture({this.from});
 }
 
 class _ImageCaptureState extends State<ImageCapture> {
@@ -155,21 +155,22 @@ class _UploaderState extends State<Uploader> {
 
                   TaskSnapshot taskSnapshot = await _uploadTask;
                   url = (await taskSnapshot.ref.getDownloadURL()).toString();
+                  Navigator.pop(context, 'TEST TEXT');
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => widget.from == 'category'
-                          ? AddCategory(
-                              file: widget.file,
-                              url: url,
-                            )
-                          : AddMeal(
-                              file: widget.file,
-                              url: url,
-                            ),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => widget.from == 'category'
+                  //         ? AddCategory(
+                  //             file: widget.file,
+                  //             url: url,
+                  //           )
+                  //         : AddMeal(
+                  //             file: widget.file,
+                  //             url: url,
+                  //           ),
+                  //   ),
+                  // );
                 },
               ),
             ),

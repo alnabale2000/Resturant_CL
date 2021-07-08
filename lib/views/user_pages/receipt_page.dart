@@ -206,10 +206,18 @@ class _ReceiptPageState extends State<ReceiptPage> {
                           child: TextButton(
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
-                                FireStoreService(userId: globals.userId)
-                                    .addOrder(
-                                  mealName: widget.cartMeals[1].mealName,
-                                );
+                                for (CartMeal cartMeal in widget.cartMeals)
+                                  FireStoreService(userId: globals.userId)
+                                      .addOrder(
+                                          mealName: cartMeal.mealName,
+                                          mealPrice: cartMeal.mealPrice,
+                                          totalPrice: cartMeal.totalPrice,
+                                          mealImage: cartMeal.mealImage,
+                                          mealDetails: cartMeal.mealDetails,
+                                          userName: _nameController.text,
+                                          phoneNumber:
+                                              int.parse(_numberController.text),
+                                          mealCount: cartMeal.count);
                               } else
                                 print('not validate');
                             },

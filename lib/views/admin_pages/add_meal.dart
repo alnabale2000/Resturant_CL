@@ -3,6 +3,7 @@ import 'dart:io' show File;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:resturant/Lists/category_list.dart';
 import 'package:resturant/admin_components/get_image_button.dart';
@@ -12,6 +13,7 @@ import 'package:resturant/firebase/firestore.dart';
 import 'package:resturant/main.dart';
 import 'package:resturant/models/category.dart';
 import 'package:resturant/random_states.dart';
+import 'package:resturant/views/admin_pages/image_picker.dart';
 import 'package:resturant/views/user_pages/home_page.dart';
 
 class AddMeal extends StatelessWidget {
@@ -24,20 +26,19 @@ class AddMeal extends StatelessWidget {
   String mealPrice;
   String mealDetails;
   String categoryName;
+  var result;
 
   bool isOffer = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    print('Back $result');
+
     print('test3');
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   title: Text('اضف وجبة'),
-      //   backgroundColor: Colors.deepOrange,
-      // ),
       body: Form(
         key: _formKey,
         child: Container(
@@ -51,7 +52,26 @@ class AddMeal extends StatelessWidget {
                         file,
                         height: size.height * 0.3,
                       )
-                    : GetImageButton(size: size, from: 'meal'),
+                    : TextButton(
+                        child: Container(
+                          height: size.height * 0.3,
+                          color: Colors.grey[300],
+                          child: Center(
+                            child: Icon(
+                              Icons.add_a_photo_outlined,
+                              color: Colors.deepOrange[400],
+                            ),
+                          ),
+                        ),
+                        onPressed: () async {
+                          result = await Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    ImageCapture(),
+                              ));
+                        },
+                      ),
                 SizedBox(
                   height: 20,
                 ),
