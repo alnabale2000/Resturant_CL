@@ -32,3 +32,4 @@ Flutter app for Restaurant or Mall,super market..
   
   -good knowladge in making admin pages..to add and delete and controll the app
   ...
+![image](https://user-images.githubusercontent.com/59667749/125284315-f93ecb00-e321-11eb-8884-e7f781e0953f.png)
