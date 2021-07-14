@@ -133,6 +133,7 @@ class FireStoreService extends ChangeNotifier {
       'meal_price': mealPrice,
       'meal_count': mealCount,
       'total_price': totalPrice,
+      'user_id': userId,
     });
   }
 
@@ -228,6 +229,15 @@ class FireStoreService extends ChangeNotifier {
       documentSnapshot.reference.delete();
   }
 
+  void deleteSingleOrderDocument({String userId}) async {
+    dynamic snapshot =
+        await ordersCollection.where('user_id', isEqualTo: userId).get();
+    for (DocumentSnapshot documentSnapshot in snapshot.docs)
+      documentSnapshot.reference.delete();
+
+    //await ordersCollection.doc(orderId).delete();
+  }
+
   void deleteAllCartMeals({String uid}) async {
     dynamic snapshot =
         await usersCollection.doc(uid).collection('user_orders').get();
@@ -242,10 +252,6 @@ class FireStoreService extends ChangeNotifier {
         .collection('user_orders')
         .doc(mealName)
         .delete();
-  }
-
-  void deleteSingleOrderDocument({String orderId}) async {
-    await ordersCollection.doc(orderId).delete();
   }
 
   void deleteSingleMealDocument(

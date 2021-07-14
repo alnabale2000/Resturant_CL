@@ -155,7 +155,7 @@ class _UploaderState extends State<Uploader> {
 
                   TaskSnapshot taskSnapshot = await _uploadTask;
                   url = (await taskSnapshot.ref.getDownloadURL()).toString();
-                  Navigator.pop(context, 'TEST TEXT');
+                  Navigator.pop(context, url);
 
                   // Navigator.push(
                   //   context,

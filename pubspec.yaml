@@ -29,6 +29,8 @@ dependencies:
   flutter_swiper: ^1.1.6
   flip_card: ^0.5.0
   shared_preferences: ^0.5.7+3
+  cool_alert: ^1.1.0
+
 
 
 

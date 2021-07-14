@@ -17,8 +17,8 @@ import 'package:resturant/views/admin_pages/image_picker.dart';
 import 'package:resturant/views/user_pages/home_page.dart';
 
 class AddMeal extends StatelessWidget {
-  final String url;
-  final File file;
+  String url;
+  File file;
 
   AddMeal({this.url, this.file});
 
@@ -31,11 +31,21 @@ class AddMeal extends StatelessWidget {
   bool isOffer = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  _goToImagePicker(context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ImageCapture()));
+    // Scaffold.of(context)
+    //   ..removeCurrentSnackBar()
+    //   ..showSnackBar(SnackBar(content: Text("$result")));
+    // file = result;
+    // print(file);
+  }
+
   @override
   Widget build(BuildContext context) {
     print('Back $result');
+    print('back $url');
 
-    print('test3');
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -64,12 +74,15 @@ class AddMeal extends StatelessWidget {
                           ),
                         ),
                         onPressed: () async {
-                          result = await Navigator.push(
+                          final result = await Navigator.push(
                               context,
-                              new MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    ImageCapture(),
-                              ));
+                              MaterialPageRoute<String>(
+                                  builder: (context) => ImageCapture()));
+                          Scaffold.of(context)
+                            ..removeCurrentSnackBar()
+                            ..showSnackBar(SnackBar(content: Text("$result")));
+                          url = result;
+                          print(url);
                         },
                       ),
                 SizedBox(

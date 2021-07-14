@@ -6,21 +6,28 @@ import 'package:resturant/admin_components/get_image_button.dart';
 import 'file:///C:/Users/NTC/AndroidStudioProjects/resturant/lib/common_components/input_field.dart';
 import 'package:resturant/firebase/firestore.dart';
 
-class AddCategory extends StatefulWidget {
-  final String url;
-  final File file;
+import 'image_picker.dart';
+
+class AddCategory extends StatelessWidget {
+  String url;
+  File file;
   final TabController tabController;
 
   AddCategory({this.url, this.file, this.tabController});
 
-  @override
-  _AddCategoryState createState() => _AddCategoryState();
-}
-
-class _AddCategoryState extends State<AddCategory> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String categoryName;
+
+  _goToImagePicker(context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ImageCapture()));
+    Scaffold.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text("$result")));
+    file = result;
+    print(file);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,15 +78,25 @@ class _AddCategoryState extends State<AddCategory> {
                   child: Center(
                     child: ListView(
                       children: [
-                        widget.file != null
+                        file != null
                             ? Image.file(
-                                widget.file,
+                                file,
                                 height: size.height * 0.3,
                               )
-                            : GetImageButton(
-                                size: size,
-                                from: 'category',
-                              ),
+                            : TextButton(
+                                child: Container(
+                                  height: size.height * 0.3,
+                                  color: Colors.grey[300],
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.add_a_photo_outlined,
+                                      color: Colors.deepOrange[400],
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  _goToImagePicker(context);
+                                }),
                         SizedBox(
                           height: size.height * 0.05,
                         ),
@@ -104,8 +121,8 @@ class _AddCategoryState extends State<AddCategory> {
                             onPressed: () async {
                               if (_formKey.currentState.validate()) {
                                 FireStoreService()
-                                    .addCategory(widget.url, categoryName);
-                                widget.tabController.animateTo(1);
+                                    .addCategory(url, categoryName);
+                                tabController.animateTo(1);
 
                                 // Navigator.push(
                                 //     context,

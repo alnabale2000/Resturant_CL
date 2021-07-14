@@ -1,62 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:resturant/common_components/loading.dart';
 import 'package:resturant/constant.dart';
 import 'package:resturant/firebase/firestore.dart';
 import 'package:resturant/models/order.dart';
 
 class OrdersList extends StatelessWidget {
-  List<dynamic> counter = [];
-
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<Order>>(context);
 
-    return ListView.separated(
-      separatorBuilder: (BuildContext context, int index) => const Divider(
-        height: 1,
-        color: Colors.green,
-      ),
-      itemCount: orders?.length ?? 0,
-      itemBuilder: (context, index) {
-        return OrderCard(
-          order: orders[index],
-        );
-      },
-    );
-  }
-}
-
-class OrdersContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final orders = Provider.of<List<Order>>(context);
-
-    return Container(
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: orders?.length ?? 0,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              TestCard(order: orders[index]),
-            ],
+    return orders == null
+        ? Loading()
+        : ListView.separated(
+            separatorBuilder: (BuildContext context, int index) => Container(
+              height: orders[index].userId == orders[index + 1].userId ? 0 : 3,
+              color: Colors.deepOrange[400],
+              width: double.infinity,
+            ),
+            itemCount: orders?.length ?? 0,
+            itemBuilder: (context, index) {
+              return OrderCard(
+                order: orders[index],
+              );
+            },
           );
-        },
-      ),
-    );
-  }
-}
-
-class TestCard extends StatelessWidget {
-  final Order order;
-
-  TestCard({this.order});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(order.mealName);
   }
 }
 
@@ -74,10 +43,9 @@ class _OrderCardState extends State<OrderCard> {
   Widget build(BuildContext context) {
     final _order = widget.order;
     final size = MediaQuery.of(context).size;
-    // print(_order[widget.indexm.ealId);
 
     return Dismissible(
-      key: ValueKey<String>(_order.mealId ?? 'asd'),
+      key: ValueKey<String>(_order.userId ?? 'asd'),
       background: Container(
         color: Colors.red,
         child: Row(
@@ -90,7 +58,7 @@ class _OrderCardState extends State<OrderCard> {
       ),
       onDismissed: (DismissDirection direction) {
         setState(() {
-          FireStoreService().deleteSingleOrderDocument(orderId: _order.mealId);
+          FireStoreService().deleteSingleOrderDocument(userId: _order.userId);
         });
       },
       child: Column(
@@ -203,7 +171,7 @@ class _OrderCardState extends State<OrderCard> {
                           ),
                           Container(
                             child: Text(
-                              "${_order.totalPrice} : العدد ",
+                              "${_order.totalPrice.toStringAsFixed(2)} : السعر ",
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   fontSize: 24.5, color: Colors.white),
@@ -230,3 +198,35 @@ class _OrderCardState extends State<OrderCard> {
     );
   }
 }
+// class OrdersContainer extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     final orders = Provider.of<List<Order>>(context);
+//
+//     return Container(
+//       child: ListView.builder(
+//         shrinkWrap: true,
+//         physics: NeverScrollableScrollPhysics(),
+//         itemCount: orders?.length ?? 0,
+//         itemBuilder: (context, index) {
+//           return Column(
+//             children: [
+//               TestCard(order: orders[index]),
+//             ],
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+//
+// class TestCard extends StatelessWidget {
+//   final Order order;
+//
+//   TestCard({this.order});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Text(order.mealName);
+//   }
+// }

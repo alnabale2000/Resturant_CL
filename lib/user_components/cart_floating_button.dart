@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resturant/models/cart_meal.dart';
@@ -26,44 +27,74 @@ class CartFloatingButton extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 15.0, left: 45),
                   child: FloatingActionButton(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text('Order Confirm'),
-                            content: const Text('Choose way to pick order'),
-                            actions: <Widget>[
-                              TextButton(
-                                child: const Text(
-                                  'Receipt',
-                                  style: TextStyle(
-                                    color: Colors.green,
+                      CoolAlert.show(
+                          context: context,
+                          type: CoolAlertType.info,
+                          // autoCloseDuration: Duration(seconds: 10),
+
+                          confirmBtnText: 'Receipt',
+                          backgroundColor: Colors.deepOrange[400],
+                          confirmBtnColor: Colors.deepOrange[400],
+                          cancelBtnText: 'Delivery',
+                          cancelBtnTextStyle: TextStyle(color: Colors.green),
+                          onConfirmBtnTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ReceiptPage(
+                                    cartMeals: cartMeals,
                                   ),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ReceiptPage(
-                                          cartMeals: cartMeals,
-                                        ),
-                                      ));
-                                },
-                              ),
-                              ElevatedButton(
-                                child: Text('Delivery'),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => DeliveryPage(),
-                                      ));
-                                },
-                              )
-                            ],
-                          );
-                        },
-                      );
+                                ));
+                          },
+                          showCancelBtn: true,
+                          onCancelBtnTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DeliveryPage(
+                                    cartMeal: cartMeals,
+                                  ),
+                                ));
+                          });
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) {
+
+                      // return AlertDialog(
+                      //   title: const Text('Order Confirm'),
+                      //   content: const Text('Choose way to pick order'),
+                      //   actions: <Widget>[
+                      //     TextButton(
+                      //       child: const Text(
+                      //         'Receipt',
+                      //         style: TextStyle(
+                      //           color: Colors.green,
+                      //         ),
+                      //       ),
+                      //       onPressed: () {
+                      //         Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //               builder: (context) => ReceiptPage(
+                      //                 cartMeals: cartMeals,
+                      //               ),
+                      //             ));
+                      //       },
+                      //     ),
+                      //     ElevatedButton(
+                      //       child: Text('Delivery'),
+                      //       onPressed: () {
+                      //         Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //               builder: (context) => DeliveryPage(),
+                      //             ));
+                      //       },
+                      //     )
+                      //   ],
+                      // );
+                      //   },
+                      // );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,

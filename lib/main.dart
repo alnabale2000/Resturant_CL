@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:resturant/firebase/firestore.dart';
@@ -12,6 +13,12 @@ import 'languages/locale_constant.dart';
 import 'languages/localizations_delegate.dart';
 
 void main() async {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.deepOrange[100],
+    ),
+  );
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 

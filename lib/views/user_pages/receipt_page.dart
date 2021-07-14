@@ -1,7 +1,9 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:resturant/firebase/firestore.dart';
 import 'package:resturant/models/cart_meal.dart';
 import 'package:resturant/globals.dart' as globals;
+import 'package:resturant/views/user_pages/home_page.dart';
 
 class ReceiptPage extends StatefulWidget {
   final List<CartMeal> cartMeals;
@@ -42,6 +44,7 @@ class _ReceiptPageState extends State<ReceiptPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('IN FROM DOOR PAGE ${globals.userId}');
     final size = MediaQuery.of(context).size;
     print(widget.cartMeals.toString());
     return Scaffold(
@@ -204,20 +207,36 @@ class _ReceiptPageState extends State<ReceiptPage> {
                             color: Colors.green,
                           ),
                           child: TextButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState.validate()) {
-                                for (CartMeal cartMeal in widget.cartMeals)
-                                  FireStoreService(userId: globals.userId)
-                                      .addOrder(
-                                          mealName: cartMeal.mealName,
-                                          mealPrice: cartMeal.mealPrice,
-                                          totalPrice: cartMeal.totalPrice,
-                                          mealImage: cartMeal.mealImage,
-                                          mealDetails: cartMeal.mealDetails,
-                                          userName: _nameController.text,
-                                          phoneNumber:
-                                              int.parse(_numberController.text),
-                                          mealCount: cartMeal.count);
+                                for (CartMeal cartMeal in widget.cartMeals) {
+                                  await FireStoreService().addOrder(
+                                      mealName: cartMeal.mealName,
+                                      mealPrice: cartMeal.mealPrice,
+                                      totalPrice: cartMeal.totalPrice,
+                                      mealImage: cartMeal.mealImage,
+                                      mealDetails: cartMeal.mealDetails,
+                                      userName: _nameController.text,
+                                      phoneNumber:
+                                          int.parse(_numberController.text),
+                                      mealCount: cartMeal.count,
+                                      userId: globals.userId);
+                                }
+                                CoolAlert.show(
+                                    barrierDismissible: false,
+                                    backgroundColor: Colors.deepOrange[700],
+                                    confirmBtnColor: Colors.green,
+                                    title: 'Success!',
+                                    context: context,
+                                    type: CoolAlertType.success,
+                                    text: 'Your Order Confirmed Successfuly',
+                                    onConfirmBtnTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomePage()));
+                                    });
                               } else
                                 print('not validate');
                             },

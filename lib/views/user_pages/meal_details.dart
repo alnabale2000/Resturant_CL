@@ -174,11 +174,22 @@ class _MealDetailsState extends State<MealDetails> {
                 child: Container(
                   height: 200,
                   width: double.infinity,
-                  child: Center(
-                    child: Text(
-                      'الأضافات',
-                      style: TextStyle(color: Colors.deepOrange[400]),
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'الأضافات',
+                        style: TextStyle(
+                            color: Colors.deepOrange[400], fontSize: 17.5),
+                      ),
+                      Text(
+                        'COMING SOON!',
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 22.5,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
                   ),
                   decoration: BoxDecoration(
                     color: Colors.white70,
