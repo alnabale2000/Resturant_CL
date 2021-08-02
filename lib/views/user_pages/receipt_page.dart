@@ -18,6 +18,7 @@ class _ReceiptPageState extends State<ReceiptPage> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _numberController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var test;
 
   TimeOfDay time;
   TimeOfDay picked;
