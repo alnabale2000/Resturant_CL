@@ -35,7 +35,7 @@
   
   # Admin Side  Screens:
   
-![Screenshot 2021-07-12 152539](https://user-images.githubusercontent.com/59667749/125440967-5743d915-cc62-485b-b837-c92353d6f6ee.png)   ![Screenshot 2021-07-12 152757](https://user-images.githubusercontent.com/59667749/125441092-c406410a-69d3-4044-a7c8-48a89ed2682e.png)  ![image](https://user-images.githubusercontent.com/59667749/125442749-75e864cb-9333-423d-81da-b3f7916d4378.png)  ![Screenshot 2021-07-12 152726](https://user-images.githubusercontent.com/59667749/125442842-4ddbd8bd-b043-4b05-9525-ea1923489bdf.png)
+![Screenshot 2021-07-12 152539](https://user-images.githubusercontent.com/59667749/125440967-5743d915-cc62-485b-b837-c92353d6f6ee.png)   ![Screenshot 2021-07-12 152757](https://user-images.githubusercontent.com/59667749/125441092-c406410a-69d3-4044-a7c8-48a89ed2682e.png)   ![Screenshot 2021-07-12 152726](https://user-images.githubusercontent.com/59667749/125442842-4ddbd8bd-b043-4b05-9525-ea1923489bdf.png)
 
 
 
